@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="style/style.css" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+   <title>Mesto</title>
+</head>
+
+<body>
+   <div class="wrapper">
+      <header class='header'>
+         <div class="header__container container">
+            <span class="header__name">Mesto</span>
+            <span class="header__location">Russia</span>
+         </div>
+      </header>
+      <main>
+         <section class="profile">
+            <div class="profile__container container">
+               <div class="profile__info">
+                  <div class="profile__infoPhoto">
+                     <img
+                        src="https://libertycity.ru/uploads/posts/2021-08/1629114930_67dd333696cf3b13702f83e97e16167d.jpg"
+                        alt="avatar" class="photo">
+                  </div>
+                  <div class="profile__infoText">
+                     <div class="infoText__name">
+                        <span>Жак Густав Денис</span>
+                        <button class="info__change">
+                           <svg class="info__change-img" width="10" height="10" viewBox="0 0 10 10" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                 d="M10 1.32827L2.60377 8.7666L1.28302 7.41936L8.66038 0L10 1.32827ZM0 10L1.96226 9.41177L0.584906 8.08349L0 10Z"
+                                 fill="white" />
+                           </svg>
+                        </button>
+                     </div>
+                     <div class="infoText__desc">Исследователь дна</div>
+                  </div>
+               </div>
+               <div class="profile__button">
+                  <button class="profile__add">
+                     <img src="./src/assets/img/plus.png" alt="button icon">
+                  </button>
+               </div>
+            </div>
+         </section>
+
+         <section class="posts">
+            <div class="posts__container container">
+               <div class="post__item">
+                  <div class="item__photo">
+                     <img src="" alt="photo" class="item__photo-img">
+                  </div>
+                  <div class="item__desc">
+                     <span class="desc__name"></span>
+                     <button class="desc__favorite">
+                        <img src="/src/assets/img/favorite.png" alt="favorite icon">
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </section>
+      </main>
+   </div>
+
+
+
+   <script src='/src/code.js'></script>
+</body>
+
+</html>

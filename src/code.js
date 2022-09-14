@@ -1,8 +1,15 @@
-const changeButton = document.querySelector('.info__change')
 const darkTheme = document.querySelector('.wrapper__dark')
-const saveButton = document.querySelector('.module__save')
+const postList = document.querySelector('.posts')
 
 
+const saveButtonProfile = document.querySelector('.module__save-profile')
+const saveButtonPost = document.querySelector('.module__save-post')
+const changeButton = document.querySelector('.info__change')
+const addButton = document.querySelector('.profile__add')
+
+
+// const post = [JSON.parse(localStorage.getItem('posts'))]
+// console.log(post)
 //ИЗМЕНЕНИЯ ПРОФИЛЯ
 
 
@@ -12,7 +19,7 @@ const fetchData = async () => {
    const data = {
       name: localStorage.name || 'Denis',
       desc: localStorage.desc || 'Genuis',
-      image: localStorage.image || 'https://m-chu.ru/wp-content/uploads/2019/04/s1200-7.jpg'
+      img: localStorage.image || 'https://m-chu.ru/wp-content/uploads/2019/04/s1200-7.jpg'
    }
    return data
 }
@@ -32,15 +39,16 @@ const renderProfileInfo = async () => {
    const image = document.querySelector('.photo')
    const data = await fetchData()
    changeProfileInfo(name, desc, image, data)
+   console.log(localStorage)
 }
 
-//Очищаем поля ввода
+//Очищаем поля ввода.
 const clearInfoInput = () => {
    const moduleInput = document.querySelector('.module__input')
    moduleInput.value = ''
 }
 
-//Получаем информацию о пользователе 
+//Получаем информацию о пользователе .
 
 const getProfileInfo = () => {
    const name = document.querySelector('.inputName')
@@ -54,50 +62,151 @@ const getProfileInfo = () => {
    }
 }
 
-//Отправляем изменения профиля на апи 
+//Сохраняем данные в хранилище и отображаем их.
 const postNewInfo = async () => {
    const user = getProfileInfo()
    localStorage.setItem('name', user.name)
    localStorage.setItem('desc', user.desc)
    localStorage.setItem('image', user.image)
    console.log(localStorage)
-   // await fetch('https://6321d51dfd698dfa290049b6.mockapi.io/profile/1', {
-   //    method: "DELETE"
-   // })
-   // const user = getProfileInfo()
-   // await fetch('https://6321d51dfd698dfa290049b6.mockapi.io/profile', {
-   //    method: "POST",
-   //    body: JSON.stringify({
-   //       name: user.name,
-   //       desc: user.desc,
-   //       image: user.image,
-   //       id: 1
-   //    })
-   // })
    renderProfileInfo()
 }
 
 
+//Изменения постов
 
 
-
-
-
-
-
-const onClickButton = () => {
-   darkTheme.style.display = 'block'
+const postElement = (city, image) => {
+   const item = document.createElement('div')
+   item.innerHTML = `
+   <div class="posts__container container">
+               <div class="post__item">
+                  <div class="item__photo">
+                     <img
+                        src=${image}
+                        alt="photo" class="item__photo-img">
+                  </div>
+                  <div class="item__desc">
+                     <span class="desc__name">${city}</span>
+                     <button class="desc__favorite">
+                        <img src="./src/assets/img/favorite.png" alt="favorite icon">
+                     </button>
+                  </div>
+               </div>
+            </div>
+   `
+   return item
 }
 
-const onClickSave = () => {
+
+
+
+
+//Добавление поста в хранилище 
+
+const addPost = () => {
+   const name = document.querySelector('.inputCity')
+   const image = document.querySelector('.inputImage')
+   const postsData = localStorage.getItem('posts')
+   if (name.value && image.value) {
+      if (postsData) {
+         const posts = JSON.parse(localStorage.getItem('posts'))
+         const id = new Date()
+         posts.push({ id, name: name.value, image: image.value })
+         localStorage.setItem('posts', JSON.stringify(posts))
+         console.log(localStorage.getItem('posts'));
+      } else {
+         const id = new Date()
+         const posts = []
+         posts.push({ id, name: name.value, image: image.value })
+         localStorage.setItem('posts', JSON.stringify(posts))
+         console.log(localStorage.getItem('posts'));
+      }
+   }
+   setPost()
+}
+
+const setPost = () => {
+   postList.innerHTML = ''
+   const posts = JSON.parse(localStorage.getItem('posts'))
+   if (posts) {
+      posts.forEach(item => render(postList, postElement(item.name, item.image)))
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Модальные окна
+
+const openProfileModule = () => {
+   const module = document.querySelector('.module-profile')
+   module.style.display = 'block'
+}
+const closeProfileModule = () => {
+   const module = document.querySelector('.module-profile')
+   module.style.display = 'none'
+}
+
+
+const openPostModule = () => {
+   const module = document.querySelector('.module-post')
+   module.style.display = 'block'
+}
+const closePostModule = () => {
+   const module = document.querySelector('.module-post')
+   module.style.display = 'none'
+}
+
+
+const render = (container, item) => {
+   container.append(item)
+}
+
+
+
+
+
+
+
+
+const onClickChange = () => {
+   darkTheme.style.display = 'block'
+   openProfileModule()
+}
+
+const onClickSaveProfile = () => {
    darkTheme.style.display = 'none'
+   closeProfileModule()
    postNewInfo()
    clearInfoInput()
 }
+const onClickSavePost = () => {
+   darkTheme.style.display = 'none'
+   addPost()
+   closePostModule()
+   clearInfoInput()
+}
+
+const onClickAdd = () => {
+   darkTheme.style.display = 'block'
+   openPostModule()
+}
+
+addButton.addEventListener('click', onClickAdd)
+saveButtonProfile.addEventListener('click', onClickSaveProfile)
+saveButtonPost.addEventListener('click', onClickSavePost)
+changeButton.addEventListener('click', onClickChange)
 
 
-saveButton.addEventListener('click', onClickSave)
-changeButton.addEventListener('click', onClickButton)
-
-
-window.onload = renderProfileInfo()
+window.onload = renderProfileInfo(), addPost()

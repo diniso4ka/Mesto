@@ -153,6 +153,10 @@ button {
    background-color: #fff;
 }
 
+.modal-fullImage {
+   display: none;
+}
+
 .module-profile {
    position: absolute;
    margin-left: auto;
@@ -179,6 +183,7 @@ button {
    flex-direction: column;
    max-width: 358px;
    margin: 0 auto;
+   position: relative;
 }
 
 .module__title {
@@ -234,4 +239,36 @@ input:focus {
    z-index: 50;
    margin: 22px 15px;
    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-icon:hover {
+   opacity: 0.5;
+   transition: 0.3s;
+}
+
+.close-modal {
+   position: absolute;
+   top: -40px;
+   right: -70px;
+   cursor: pointer;
+}
+
+.modal-fullImage__container {
+   width: 100vh;
+   height: 80vh;
+   margin: 100px auto;
+   background-color: #fff;
+   position: relative;
+}
+
+.close-modalFullImage {
+   position: absolute;
+   top: -50px;
+   right: -50px;
+}
+
+.modal-image {
+   max-width: 100vh;
+   height: 80vh
 }

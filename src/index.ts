@@ -69,9 +69,19 @@ const renderProfileInfo = async () => {
 
 //Очищаем поля ввода.
 const clearInfoInput = () => {
-   const moduleInput: HTMLInputElement | null = document.querySelector('.module__input')
-   if (moduleInput) {
-      moduleInput.value = ''
+   const inputImage: HTMLInputElement | null = document.querySelector('.inputImage')
+   const inputCity: HTMLInputElement | null = document.querySelector('.inputCity')
+   const inputName: HTMLInputElement | null = document.querySelector('.inputName')
+   const inputDesc: HTMLInputElement | null = document.querySelector('.inputDesc')
+   const inputImgUrl: HTMLInputElement | null = document.querySelector('.inputImgUrl')
+
+   if (inputImage && inputCity && inputImgUrl && inputDesc && inputName) {
+      inputImage.value = ''
+      inputCity.value = ''
+      inputImgUrl.value = ''
+      inputDesc.value = ''
+      inputName.value = ''
+
    }
 }
 
@@ -83,11 +93,19 @@ const getProfileInfo = (): IData | void => {
    const desc: HTMLInputElement | null = document.querySelector('.inputDesc')
    const image: HTMLInputElement | null = document.querySelector('.inputImgUrl')
    if (name && desc && image) {
-      return {
-         name: name.value || 'Denis',
-         desc: desc.value || 'Genius',
-         image: image.value || 'https://m-chu.ru/wp-content/uploads/2019/04/s1200-7.jpg',
+      const img = new Image
+      img.src = image.value
+      img.onload = () => {
+         return {
+            name: name.value || 'Denis',
+            desc: desc.value || 'Genius',
+            image: image.value || 'https://m-chu.ru/wp-content/uploads/2019/04/s1200-7.jpg',
 
+         }
+      }
+      img.onerror = () => {
+         alert('Изображение не найдено')
+         clearInfoInput()
       }
    }
 }
@@ -143,18 +161,26 @@ const setPost = () => {
    const image: HTMLInputElement | null = document.querySelector('.inputImage')
    if (name && image && name.value && image.value) {
       const postsStorage = localStorage.getItem('posts')
-      if (postsStorage) {
-         const posts = JSON.parse(postsStorage)
-         const id = new Date().getTime()
-         posts.push({ id, name: name.value, image: image.value, liked: false })
-         localStorage.setItem('posts', JSON.stringify(posts))
-         addPost()
-      } else {
-         const posts = []
-         const id = new Date().getTime()
-         posts.push({ id, name: name.value, image: image.value, liked: false })
-         localStorage.setItem('posts', JSON.stringify(posts))
-         addPost()
+      const img = new Image
+      img.src = image.value
+      img.onload = () => {
+         if (postsStorage) {
+            const posts = JSON.parse(postsStorage)
+            const id = new Date().getTime()
+            posts.push({ id, name: name.value, image: image.value, liked: false })
+            localStorage.setItem('posts', JSON.stringify(posts))
+            addPost()
+         } else {
+            const posts = []
+            const id = new Date().getTime()
+            posts.push({ id, name: name.value, image: image.value, liked: false })
+            localStorage.setItem('posts', JSON.stringify(posts))
+            addPost()
+         }
+      }
+      img.onerror = () => {
+         alert('Изображение не найдено')
+         clearInfoInput()
       }
    }
 }

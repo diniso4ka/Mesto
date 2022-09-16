@@ -79,10 +79,21 @@ button {
 }
 
 
+
 .profile__add {
    border: 2px solid #fff;
    width: 150px;
    height: 50px;
+   cursor: pointer;
+}
+
+.profile__add:hover,
+.desc__favorite:hover,
+.info__change:hover,
+.close-modal:hover,
+.close-icon:hover {
+   opacity: 0.5;
+   transition: 0.3s;
 }
 
 
@@ -114,6 +125,7 @@ button {
    height: 282px;
    overflow: hidden;
    align-items: center;
+   cursor: pointer;
 }
 
 .item__photo-img {
@@ -131,7 +143,10 @@ button {
 
 .desc__favorite {
    background-color: #fff;
+   cursor: pointer;
 }
+
+
 
 .desc__name {
    font-weight: 900;
@@ -241,11 +256,6 @@ input:focus {
    cursor: pointer;
 }
 
-.close-modal:hover,
-.close-icon:hover {
-   opacity: 0.5;
-   transition: 0.3s;
-}
 
 .close-modal {
    position: absolute;

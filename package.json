@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development --open"
+    "start": "webpack serve --mode development --open",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "gh-pages": "^4.0.0"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",

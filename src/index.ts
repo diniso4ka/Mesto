@@ -1,4 +1,4 @@
-
+import '../style/index.css'
 
 const darkTheme: HTMLDivElement | null = document.querySelector('.wrapper__dark')
 
@@ -202,19 +202,16 @@ const deletePost = (id: number) => {
 }
 
 const openImage = (id: number) => {
-   console.log(id)
    const postsStorage = localStorage.getItem('posts')
-   console.log(postsStorage)
    const modalElement: HTMLImageElement | null = document.querySelector('.modal-image')
    if (postsStorage && modalElement) {
       const posts = JSON.parse(postsStorage)
-      const fullImage = posts.filter((el: IUser) => {
-         el.id === id;
+      posts.filter((el: IUser) => {
+         if (el.id === id) {
+            modalElement.src = el.image
+         }
       })
-      modalElement.src = fullImage[0].image
       openFullImageModule()
-      console.log(posts)
-
    }
 }
 

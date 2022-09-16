@@ -1,1 +1,138 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="451c4a162a74ff52cc26.css"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet"><title>Mesto</title><script defer="defer" src="bundle.js"></script></head><body><div class="wrapper__dark"><section class="module module-profile"><div class="module__container"><p class="module__title">Редактировать профиль</p><input class="module__input inputName" placeholder="Денис Анатольевич" class="module__name"> <input class="module__input inputDesc" placeholder="Старший заготовщик" class="module__desc"> <input class="module__input inputImgUrl" placeholder="Ссылка на изображение" class="module__imgURL"> <button class="module__save module__save-profile">Сохранить</button></div></section><section class="module module-post"><div class="module__container"><p class="module__title">Добавить место</p><input class="module__input inputCity" placeholder="Москва" class="module__name"> <input class="module__input inputImage" placeholder="Ссылка на изображение" class="module__imgURL"> <button class="module__save module__save-post">Сохранить</button></div></section></div><div class="wrapper"><header class="header"><div class="header__container container"><span class="header__name">Mesto</span> <span class="header__location">Russia</span></div></header><main><section class="profile"><div class="profile__container container"><div class="profile__info"><div class="profile__infoPhoto"><img src="https://libertycity.ru/uploads/posts/2021-08/1629114930_67dd333696cf3b13702f83e97e16167d.jpg" alt="avatar" class="photo"></div><div class="profile__infoText"><div class="infoText__name"><span class="infoText__name-text">Жак Густав Денис</span> <button class="info__change"><svg class="info__change-img" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.32827L2.60377 8.7666L1.28302 7.41936L8.66038 0L10 1.32827ZM0 10L1.96226 9.41177L0.584906 8.08349L0 10Z" fill="white"/></svg></button></div><div class="infoText__desc"><span class="infoText__desc-text">Исследователь дна</span></div></div></div><div class="profile__button"><button class="profile__add"><img src="9c6ccad221853646c5df.png" alt="button icon"></button></div></div></section><section class="posts container"></section></main></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+   <title>Mesto</title>
+<script defer src="bundle.js"></script></head>
+
+<body>
+
+
+   <div class="wrapper__dark">
+
+
+      <section class="module module-profile">
+         <div class="module__container">
+            <svg class='close-modalProfile close-modal' width="32" height="32" viewBox="0 0 32 32" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+               <path
+                  d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z"
+                  fill="white" />
+            </svg>
+            <p class="module__title">Редактировать профиль</p>
+            <input class="module__input inputName" placeholder="Денис Анатольевич" type="text" class="module__name">
+            <input class="module__input inputDesc" placeholder="Старший заготовщик" type="text" class="module__desc">
+            <input class="module__input inputImgUrl" placeholder="Ссылка на изображение" type="text"
+               class="module__imgURL">
+            <button class="module__save module__save-profile">Сохранить</button>
+         </div>
+      </section>
+
+
+      <section class="module module-post">
+         <div class="module__container">
+            <svg class='close-modalPost close-modal' width="32" height="32" viewBox="0 0 32 32" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+               <path
+                  d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z"
+                  fill="white" />
+            </svg>
+            <p class="module__title">Добавить место</p>
+            <input class="module__input inputCity" placeholder="Москва" type="text" class="module__name">
+            <input class="module__input inputImage" placeholder="Ссылка на изображение" type="text"
+               class="module__imgURL">
+            <button class="module__save module__save-post">Сохранить</button>
+         </div>
+      </section>
+
+      <section class="modal-fullImage">
+         <div class="modal-fullImage__container">
+            <svg class='close-modalFullImage close-modal' width="32" height="32" viewBox="0 0 32 32" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+               <path
+                  d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z"
+                  fill="white" />
+            </svg>
+            <img class="modal-image" src="https://i.artfile.ru/3071x2047_1537950_[www.ArtFile.ru].jpg" alt="post photo">
+         </div>
+      </section>
+
+
+   </div>
+
+
+
+   <div class="wrapper">
+      <header class='header'>
+         <div class="header__container container">
+            <span class="header__name">Mesto</span>
+            <span class="header__location">Russia</span>
+         </div>
+      </header>
+      <main>
+         <section class="profile">
+            <div class="profile__container container">
+               <div class="profile__info">
+                  <div class="profile__infoPhoto">
+                     <img
+                        src="https://libertycity.ru/uploads/posts/2021-08/1629114930_67dd333696cf3b13702f83e97e16167d.jpg"
+                        alt="avatar" class="photo">
+                  </div>
+                  <div class="profile__infoText">
+                     <div class="infoText__name">
+                        <span class="infoText__name-text">Жак Густав Денис</span>
+                        <button class="info__change">
+                           <svg class="info__change-img" width="10" height="10" viewBox="0 0 10 10" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                 d="M10 1.32827L2.60377 8.7666L1.28302 7.41936L8.66038 0L10 1.32827ZM0 10L1.96226 9.41177L0.584906 8.08349L0 10Z"
+                                 fill="white" />
+                           </svg>
+                        </button>
+                     </div>
+                     <div class="infoText__desc">
+                        <span class="infoText__desc-text">Исследователь дна</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="profile__button">
+                  <button class="profile__add">
+                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 9.77778H12.2222V0H9.77778V9.77778H0V12.2222H9.77778V22H12.2222V12.2222H22V9.77778Z"
+                           fill="white" />
+                     </svg>
+
+                  </button>
+               </div>
+            </div>
+         </section>
+
+         <section class="posts container">
+            <!-- <div class="posts__container container">
+               <div class="post__item">
+                  <img src='./assets/img/close.png' class='close-icon'/>
+                  <div class="item__photo">
+                     <img
+                        src="https://catherineasquithgallery.com/uploads/posts/2021-02/1612929283_177-p-kreml-krasnii-fon-243.jpg"
+                        alt="photo" class="item__photo-img">
+                  </div>
+                  <div class="item__desc">
+                     <span class="desc__name">Москоу</span>
+                     <button class="desc__favorite">
+                        <img src="./src/assets/img/favorite.png" alt="favorite icon">
+                     </button>
+                  </div>
+               </div>
+            </div> -->
+         </section>
+      </main>
+   </div>
+</body>
+
+</html>

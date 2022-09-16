@@ -1,19 +1,24 @@
-const darkTheme = document.querySelector('.wrapper__dark')
-const postList = document.querySelector('.posts')
-
-
-const saveButtonProfile = document.querySelector('.module__save-profile')
-const saveButtonPost = document.querySelector('.module__save-post')
-const changeButton = document.querySelector('.info__change')
-const addButton = document.querySelector('.profile__add')
+const darkTheme: HTMLDivElement | null = document.querySelector('.wrapper__dark')
 
 
 
-// const post = [JSON.parse(localStorage.getItem('posts'))]
-// console.log(post)
+const saveButtonProfile: HTMLButtonElement | null = document.querySelector('.module__save-profile')
+const saveButtonPost: HTMLButtonElement | null = document.querySelector('.module__save-post')
+const changeButton: HTMLButtonElement | null = document.querySelector('.info__change')
+const addButton: HTMLButtonElement | null = document.querySelector('.profile__add')
+
+
+
+
 //ИЗМЕНЕНИЯ ПРОФИЛЯ
 
 interface IData {
+   name: string,
+   desc: string,
+   img: string,
+}
+
+interface IUser {
    name: string,
    desc: string,
    image: string,
@@ -23,12 +28,14 @@ interface IData {
 
 
 
+
+
 //Получаем информацию о профиле с хранилища.
-const fetchData = async () => {
-   const data = {
+const fetchData = async (): Promise<IData> => {
+   const data: IData = {
       name: localStorage.name || 'Denis',
       desc: localStorage.desc || 'Genuis',
-      img: localStorage.image || 'https://m-chu.ru/wp-content/uploads/2019/04/s1200-7.jpg'
+      img: localStorage.image || 'https://libertycity.ru/uploads/posts/2021-08/1629114930_67dd333696cf3b13702f83e97e16167d.jpg',
    }
    return data
 }
@@ -49,7 +56,7 @@ const renderProfileInfo = async () => {
    console.log(image);
 
    if (name && desc && image) {
-      const data = await fetchData()
+      const data: IData = await fetchData()
       changeProfileInfo(name, desc, image, data)
       console.log(localStorage)
    }
@@ -65,24 +72,29 @@ const clearInfoInput = () => {
 
 //Получаем информацию о пользователе .
 
-const getProfileInfo = (): IData => {
-   const name = document.querySelector('.inputName')
-   const desc = document.querySelector('.inputDesc')
-   const image = document.querySelector('.inputImgUrl')
-   return user = {
-      name: name.value || 'Denis',
-      desc: desc.value || 'Genius',
-      image: image.value || 'https://m-chu.ru/wp-content/uploads/2019/04/s1200-7.jpg',
-      id: 1
+const getProfileInfo = (): IUser | void => {
+
+   const name: HTMLInputElement | null = document.querySelector('.inputName')
+   const desc: HTMLInputElement | null = document.querySelector('.inputDesc')
+   const image: HTMLInputElement | null = document.querySelector('.inputImgUrl')
+   if (name && desc && image) {
+      return {
+         name: name.value || 'Denis',
+         desc: desc.value || 'Genius',
+         image: image.value || 'https://m-chu.ru/wp-content/uploads/2019/04/s1200-7.jpg',
+         id: 1
+      }
    }
 }
 
 //Сохраняем данные в хранилище и отображаем их.
 const postNewInfo = async () => {
    const user = getProfileInfo()
-   localStorage.setItem('name', user.name)
-   localStorage.setItem('desc', user.desc)
-   localStorage.setItem('image', user.image)
+   if (user) {
+      localStorage.setItem('name', user.name)
+      localStorage.setItem('desc', user.desc)
+      localStorage.setItem('image', user.image)
+   }
    console.log(localStorage)
    renderProfileInfo()
 }
@@ -90,7 +102,7 @@ const postNewInfo = async () => {
 
 //Изменения постов
 
-const postElement = (city, image, id) => {
+const postElement = (city: string, image: string, id: number) => {
    const item = document.createElement('div')
    item.classList.add(`itemId${id}`)
    item.classList.add('post__item')
@@ -114,51 +126,61 @@ const postElement = (city, image, id) => {
 
 
 
-//Добавление поста в хранилище 
-
-const addPost = () => {
-   const name = document.querySelector('.inputCity')
-   const image = document.querySelector('.inputImage')
-   const postsData = localStorage.getItem('posts')
-   if (name.value && image.value) {
-      if (postsData) {
-         const posts = JSON.parse(localStorage.getItem('posts'))
-         const id = new Date().getMilliseconds()
-         posts.push({ id: id, name: name.value, image: image.value })
-         localStorage.setItem('posts', JSON.stringify(posts))
-         console.log(localStorage.getItem('posts'));
-      } else {
-         const id = new Date().getMilliseconds()
-         const posts = []
-         posts.push({ id, name: name.value, image: image.value })
-         localStorage.setItem('posts', JSON.stringify(posts))
-         console.log(localStorage.getItem('posts'));
-      }
-   }
-   setPost()
-
-}
-
 
 
 const setPost = () => {
-   postList.innerHTML = ''
-   const posts = JSON.parse(localStorage.getItem('posts'))
-   if (posts) {
-      posts.forEach(item => {
-         render(postList, postElement(item.name, item.image, item.id))
-         const deleteButton = document.querySelector(`.itemId${item.id} .close-icon`)
-         deleteButton.addEventListener('click', () => deletePost(item.id))
-
-
-      })
+   const name: HTMLInputElement | null = document.querySelector('.inputCity')
+   const image: HTMLInputElement | null = document.querySelector('.inputImage')
+   if (name && image && name.value && image.value) {
+      const postsStorage = localStorage.getItem('posts')
+      if (postsStorage) {
+         const posts = JSON.parse(postsStorage)
+         const id = new Date().getTime()
+         posts.push({ id, name: name.value, image: image.value })
+         localStorage.setItem('posts', JSON.stringify(posts))
+         addPost()
+      } else {
+         const posts = []
+         const id = new Date().getTime()
+         posts.push({ id, name: name.value, image: image.value })
+         localStorage.setItem('posts', JSON.stringify(posts))
+         addPost()
+      }
    }
 }
 
-const deletePost = (id) => {
-   const posts = JSON.parse(localStorage.getItem('posts')).filter(el => id !== el.id)
-   localStorage.setItem('posts', JSON.stringify(posts))
-   addPost()
+
+const addPost = () => {
+   const postList: HTMLDivElement | null = document.querySelector('.posts')
+   const postsStorage = localStorage.getItem('posts')
+   if (postList && postsStorage) {
+      postList.innerHTML = ''
+      const posts = JSON.parse(postsStorage)
+      if (posts) {
+         posts.forEach((el: IUser) => {
+            render(postList, postElement(el.name, el.image, el.id))
+            const deleteButton: HTMLButtonElement | null = document.querySelector(`.itemId${el.id} .close-icon`)
+            if (deleteButton) {
+               deleteButton.addEventListener('click', () => deletePost(el.id))
+            }
+         })
+
+      }
+
+   }
+}
+
+
+
+
+
+const deletePost = (id: number) => {
+   const postsStorage = localStorage.getItem('posts')
+   if (postsStorage) {
+      const posts = JSON.parse(postsStorage).filter((el: IUser) => id !== el.id)
+      localStorage.setItem('posts', JSON.stringify(posts))
+      addPost()
+   }
 }
 
 console.log(localStorage.getItem('posts'));
@@ -179,27 +201,35 @@ console.log(localStorage.getItem('posts'));
 //Модальные окна
 
 const openProfileModule = () => {
-   const module = document.querySelector('.module-profile')
-   module.style.display = 'block'
+   const module: HTMLDivElement | null = document.querySelector('.module-profile')
+   if (module) {
+      module.style.display = 'block'
+   }
 }
 const closeProfileModule = () => {
-   const module = document.querySelector('.module-profile')
-   module.style.display = 'none'
+   const module: HTMLDivElement | null = document.querySelector('.module-profile')
+   if (module) {
+      module.style.display = 'none'
+   }
 }
 
 
 const openPostModule = () => {
-   const module = document.querySelector('.module-post')
-   module.style.display = 'block'
+   const module: HTMLDivElement | null = document.querySelector('.module-post')
+   if (module) {
+      module.style.display = 'block'
+   }
 }
 const closePostModule = () => {
-   const module = document.querySelector('.module-post')
-   module.style.display = 'none'
+   const module: HTMLDivElement | null = document.querySelector('.module-post')
+   if (module) {
+      module.style.display = 'none'
+   }
 }
 
 
 
-const render = (container, item) => {
+const render = (container: HTMLDivElement, item: HTMLDivElement) => {
    container.append(item)
 }
 
@@ -211,42 +241,59 @@ const render = (container, item) => {
 
 
 const onClickChange = () => {
-   darkTheme.style.display = 'block'
-   openProfileModule()
+   if (darkTheme) {
+      darkTheme.style.display = 'block'
+      openProfileModule()
+   }
 }
 
 const onClickSaveProfile = () => {
-   darkTheme.style.display = 'none'
-   closeProfileModule()
-   postNewInfo()
-   clearInfoInput()
+   if (darkTheme) {
+      darkTheme.style.display = 'none'
+      closeProfileModule()
+      postNewInfo()
+      clearInfoInput()
+   }
 }
+
 const onClickSavePost = () => {
-   darkTheme.style.display = 'none'
-   addPost()
-   closePostModule()
-   clearInfoInput()
+   if (darkTheme) {
+      darkTheme.style.display = 'none'
+      setPost()
+      closePostModule()
+      clearInfoInput()
+   }
 }
 
 const onClickAdd = () => {
-   darkTheme.style.display = 'block'
-   openPostModule()
+   if (darkTheme) {
+      darkTheme.style.display = 'block'
+      openPostModule()
+   }
 }
 
 
 
 
 const renderPage = () => {
-   renderProfileInfo
+   renderProfileInfo()
    addPost()
 }
 
 
+if (addButton) {
+   addButton.addEventListener('click', onClickAdd)
+}
+if (saveButtonPost) {
+   saveButtonPost.addEventListener('click', onClickSavePost)
+}
+if (saveButtonProfile) {
+   saveButtonProfile.addEventListener('click', onClickSaveProfile)
+}
+if (changeButton) {
+   changeButton.addEventListener('click', onClickChange)
+}
 
-addButton.addEventListener('click', onClickAdd)
-saveButtonProfile.addEventListener('click', onClickSaveProfile)
-saveButtonPost.addEventListener('click', onClickSavePost)
-changeButton.addEventListener('click', onClickChange)
-
-
-window.onload = renderPage()
+window.onload = () => {
+   renderPage()
+}

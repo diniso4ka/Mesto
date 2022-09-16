@@ -4,24 +4,12 @@ require('webpack');
 
 
 
-
-// module.exports = {
-//    entry: './src/index.ts',
-//    mode: 'development',
-//    output: {
-//       path: path.resolve(__dirname, 'dist')
-//    },
-//    resolve: {
-//       extensions: [".tsx", ".ts", ".js"]
-//    },
-// }
-
-
-
-
 module.exports = {
    entry: './src/index.ts',
    mode: 'production',
+   stats: {
+      children: true,
+   },
    devServer: {
       static: {
          directory: path.join(__dirname, 'dist'),
@@ -33,6 +21,7 @@ module.exports = {
    output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
+      clean: true
    },
    module: {
       rules: [
@@ -43,7 +32,7 @@ module.exports = {
             exclude: /node_modules/
          },
          {
-            test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+            test: /\.(woff(2)?|ttf|eot|svg|png)(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'file-loader',
             options: {
                name: '[name].[ext]'

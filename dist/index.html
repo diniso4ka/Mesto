@@ -1,69 +1,119 @@
-<head><script defer src="bundle.js"></script></head>Html Webpack Plugin:
-<pre>
-  Error: Child compilation failed:
-  Module not found: Error: Can't resolve 'html-loader' in 'C:\Users\Денис\Desktop\Frontend\2022\Mesto'
-  ModuleNotFoundError: Module not found: Error: Can't resolve 'html-loader' in 'C:\Users\Денис\Desktop\Frontend\2022\Mesto'
-      at C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\webpack\lib\Compilation.js:2016:28
-      at C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\webpack\lib\NormalModuleFactory.js:798:13
-      at eval (eval at create (C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\tapable\lib\HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\webpack\lib\NormalModuleFactory.js:270:22
-      at eval (eval at create (C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\tapable\lib\HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\webpack\lib\NormalModuleFactory.js:541:15
-      at C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\webpack\lib\NormalModuleFactory.js:116:11
-      at C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\webpack\lib\NormalModuleFactory.js:612:8
-      at C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\neo-async\async.js:2830:7
-      at done (C:\Users\Денис\Desktop\Frontend\2022\Mesto\node_modules\neo-async\async.js:2925:13)
-  
-  - Compilation.js:2016 
-    [Mesto]/[webpack]/lib/Compilation.js:2016:28
-  
-  - NormalModuleFactory.js:798 
-    [Mesto]/[webpack]/lib/NormalModuleFactory.js:798:13
-  
-  
-  - NormalModuleFactory.js:270 
-    [Mesto]/[webpack]/lib/NormalModuleFactory.js:270:22
-  
-  
-  - NormalModuleFactory.js:541 
-    [Mesto]/[webpack]/lib/NormalModuleFactory.js:541:15
-  
-  - NormalModuleFactory.js:116 
-    [Mesto]/[webpack]/lib/NormalModuleFactory.js:116:11
-  
-  - NormalModuleFactory.js:612 
-    [Mesto]/[webpack]/lib/NormalModuleFactory.js:612:8
-  
-  - async.js:2830 
-    [Mesto]/[neo-async]/async.js:2830:7
-  
-  - async.js:2925 done
-    [Mesto]/[neo-async]/async.js:2925:13
-  
-  - child-compiler.js:169 
-    [Mesto]/[html-webpack-plugin]/lib/child-compiler.js:169:18
-  
-  - Compiler.js:551 finalCallback
-    [Mesto]/[webpack]/lib/Compiler.js:551:5
-  
-  - Compiler.js:577 
-    [Mesto]/[webpack]/lib/Compiler.js:577:11
-  
-  - Compiler.js:1196 
-    [Mesto]/[webpack]/lib/Compiler.js:1196:17
-  
-  
-  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
-    [Mesto]/[tapable]/lib/Hook.js:18:14
-  
-  - Compiler.js:1192 
-    [Mesto]/[webpack]/lib/Compiler.js:1192:33
-  
-  - Compilation.js:2787 finalCallback
-    [Mesto]/[webpack]/lib/Compilation.js:2787:11
-  
-  - Compilation.js:3092 
-    [Mesto]/[webpack]/lib/Compilation.js:3092:11
-  
-  
-</pre>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="451c4a162a74ff52cc26.css" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+   <title>Mesto</title>
+<script defer src="bundle.js"></script></head>
+
+<body>
+
+
+   <div class="wrapper__dark">
+
+
+      <section class="module module-profile">
+         <div class="module__container">
+            <p class="module__title">Редактировать профиль</p>
+            <input class="module__input inputName" placeholder="Денис Анатольевич" type="text" class="module__name">
+            <input class="module__input inputDesc" placeholder="Старший заготовщик" type="text" class="module__desc">
+            <input class="module__input inputImgUrl" placeholder="Ссылка на изображение" type="text"
+               class="module__imgURL">
+            <button class="module__save module__save-profile">Сохранить</button>
+         </div>
+      </section>
+
+
+      <section class="module module-post">
+         <div class="module__container">
+            <p class="module__title">Добавить место</p>
+            <input class="module__input inputCity" placeholder="Москва" type="text" class="module__name">
+            <input class="module__input inputImage" placeholder="Ссылка на изображение" type="text"
+               class="module__imgURL">
+            <button class="module__save module__save-post">Сохранить</button>
+         </div>
+      </section>
+
+
+   </div>
+
+
+
+   <div class="wrapper">
+      <header class='header'>
+         <div class="header__container container">
+            <span class="header__name">Mesto</span>
+            <span class="header__location">Russia</span>
+         </div>
+      </header>
+      <main>
+         <section class="profile">
+            <div class="profile__container container">
+               <div class="profile__info">
+                  <div class="profile__infoPhoto">
+                     <img
+                        src="https://libertycity.ru/uploads/posts/2021-08/1629114930_67dd333696cf3b13702f83e97e16167d.jpg"
+                        alt="avatar" class="photo">
+                  </div>
+                  <div class="profile__infoText">
+                     <div class="infoText__name">
+                        <span class="infoText__name-text">Жак Густав Денис</span>
+                        <button class="info__change">
+                           <svg class="info__change-img" width="10" height="10" viewBox="0 0 10 10" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                 d="M10 1.32827L2.60377 8.7666L1.28302 7.41936L8.66038 0L10 1.32827ZM0 10L1.96226 9.41177L0.584906 8.08349L0 10Z"
+                                 fill="white" />
+                           </svg>
+                        </button>
+                     </div>
+                     <div class="infoText__desc">
+                        <span class="infoText__desc-text">Исследователь дна</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="profile__button">
+                  <button class="profile__add">
+                     <img src="c109c5562d5ffa5bb6cd.png" alt="button icon">
+                  </button>
+               </div>
+            </div>
+         </section>
+
+         <section class="posts container">
+            <!-- <div class="posts__container container">
+               <div class="post__item">
+                  <img src='./assets/img/close.png' class='close-icon'/>
+                  <div class="item__photo">
+                     <img
+                        src="https://catherineasquithgallery.com/uploads/posts/2021-02/1612929283_177-p-kreml-krasnii-fon-243.jpg"
+                        alt="photo" class="item__photo-img">
+                  </div>
+                  <div class="item__desc">
+                     <span class="desc__name">Москоу</span>
+                     <button class="desc__favorite">
+                        <img src="./src/assets/img/favorite.png" alt="favorite icon">
+                     </button>
+                  </div>
+               </div>
+            </div> -->
+         </section>
+      </main>
+   </div>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

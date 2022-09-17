@@ -53,7 +53,7 @@ const saveInfoProfile = () => {
    }
 
 }
-localStorage.clear()
+
 
 //Получаем информацию о профиле с хранилища.
 

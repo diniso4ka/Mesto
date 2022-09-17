@@ -41,9 +41,9 @@ interface IUser {
 //Получаем информацию о профиле с хранилища.
 const fetchData = async (): Promise<IData> => {
    const data: IData = {
-      name: localStorage.name || 'Denis',
-      desc: localStorage.desc || 'Genuis',
-      image: localStorage.image || 'https://libertycity.ru/uploads/posts/2021-08/1629114930_67dd333696cf3b13702f83e97e16167d.jpg',
+      name: localStorage.name,
+      desc: localStorage.desc,
+      image: localStorage.image,
    }
    return data
 }
@@ -95,9 +95,9 @@ const getProfileInfo = (): IData | void => {
    const image: HTMLInputElement | null = document.querySelector('.inputImgUrl')
    if (name && desc && image) {
       return {
-         name: name.value || 'Denis',
-         desc: desc.value || 'Genius',
-         image: image.value || 'https://mineralmarket.ru/img/articlesImg/author.jpg',
+         name: name.value || localStorage.name,
+         desc: desc.value || localStorage.desc,
+         image: image.value || localStorage.image,
 
       }
    }
@@ -111,7 +111,6 @@ const postNewInfo = async () => {
       localStorage.setItem('desc', user.desc)
       localStorage.setItem('image', user.image)
    }
-   console.log(localStorage)
    renderProfileInfo()
 }
 

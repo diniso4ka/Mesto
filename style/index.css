@@ -335,9 +335,15 @@ input:focus {
       font-size: 20px;
    }
 
+   .profile__button {
+      width: 282px;
+      display: flex;
+   }
+
 
    .profile__add {
-      margin: 30px 0 0 20px;
+      width: 100%;
+      margin: 30px 0 0 0;
    }
 
 

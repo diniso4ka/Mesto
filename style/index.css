@@ -45,6 +45,7 @@ button {
    display: flex;
    justify-content: space-between;
    align-items: center;
+   flex-wrap: wrap;
 }
 
 .profile__info {
@@ -85,6 +86,7 @@ button {
    width: 150px;
    height: 50px;
    cursor: pointer;
+   margin: 0 0 0 20px;
 }
 
 .profile__add:hover,
@@ -126,6 +128,7 @@ button {
    overflow: hidden;
    align-items: center;
    cursor: pointer;
+   border: none;
 }
 
 .item__photo-img {
@@ -264,21 +267,82 @@ input:focus {
    cursor: pointer;
 }
 
+
+
 .modal-fullImage__container {
-   width: 100vh;
-   height: 80vh;
+   max-width: 100vh;
    margin: 100px auto;
    background-color: #fff;
    position: relative;
+   z-index: 200;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
 }
 
 .close-modalFullImage {
    position: absolute;
-   top: -50px;
-   right: -50px;
+   top: 10px;
+   right: 10px;
 }
 
 .modal-image {
-   max-width: 100vh;
-   height: 80vh
+   width: 80vh;
+   height: 80vh;
+}
+
+.footer_container {
+   margin: 20px auto;
+}
+
+@media (max-width:900px) {
+   .posts {
+      max-width: 620px;
+
+   }
+
+   .post__item {
+      margin: 10px 14px;
+   }
+
+   .container {
+      max-width: 620px;
+      margin: 0 auto;
+   }
+
+}
+
+
+@media (max-width:640px) {
+   .posts {
+      max-width: 420px;
+      display: flex;
+      justify-content: center;
+   }
+
+
+
+
+   .profile__add {
+
+      margin: 30px 0 0 20px;
+   }
+
+
+   .post__item {
+
+      margin: 20px 0;
+   }
+
+   .profile__container {
+      align-items: center;
+      justify-content: center;
+   }
+
+   .container {
+      max-width: 420px;
+      margin: 0 auto;
+   }
+
 }

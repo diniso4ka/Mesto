@@ -1,73 +1,35 @@
 import path from 'path';
-import webpack from 'webpack'
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
 
 
 import { buildLoaders } from './build/buildLoader'
 import { buildResolvers } from './build/buildResolvers'
 import { buildPlugins } from './build/buildPlugins'
-// require('webpack');
+import { buildDevServer } from './build/buildDevServer'
 
 
 
-
-
-module.exports = {
-   entry: './src/index.ts',
-   mode: 'production',
-   stats: {
-      children: true,
-   },
-   devServer: {
-      static: {
-         directory: path.join(__dirname, 'dist'),
+export default () => {
+   const config =
+   {
+      entry: './src/index.ts',
+      mode: 'production',
+      stats: {
+         children: true,
       },
-      compress: true,
-      port: 3000,
+      devServer: buildDevServer(),
+      output: {
+         path: path.resolve(__dirname, 'dist'),
+         filename: 'bundle.js',
+         clean: true
+      },
+      module: {
+         rules: buildLoaders()
+      },
 
-   },
-   output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js',
-      clean: true
-   },
-   module: {
-      rules: buildLoaders()
-   },
-
-   plugins: buildPlugins(),
-   resolve: buildResolvers()
+      plugins: buildPlugins(),
+      resolve: buildResolvers()
+   };
+   return config
 };
-
-// export default () => {
-
-//    const config = {
-//       entry: './src/index.ts',
-//       mode: 'production',
-//       stats: {
-//          children: true,
-//       },
-//       devServer: {
-//          static: {
-//             directory: path.join(__dirname, 'dist'),
-//          },
-//          compress: true,
-//          port: 3000,
-
-//       },
-//       output: {
-//          path: path.resolve(__dirname, 'dist'),
-//          filename: 'bundle.js',
-//          clean: true
-//       },
-//       module: {
-//          rules: buildLoaders()
-//       },
-
-//       plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
-//       resolve: {
-//          extensions: [".tsx", ".ts", ".js"]
-//       },
-//    }
-//    return config
-// };

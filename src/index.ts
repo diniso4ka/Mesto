@@ -34,38 +34,56 @@ interface IUser {
 }
 
 
+//Сохраняем информацию о профиле в хранилище
 
+const saveInfoProfile = () => {
+   const name: HTMLInputElement = document.querySelector('.inputName')
+   const desc: HTMLInputElement = document.querySelector('.inputDesc')
+   const image: HTMLInputElement = document.querySelector('.inputImgUrl')
+   const nameText: HTMLDivElement = document.querySelector('.infoText__name-text')
+   const descText: HTMLDivElement = document.querySelector('.infoText__desc-text')
+   const imageText: HTMLDivElement = document.querySelector('.photo')
+   if (name && desc && image) {
+      const user = {
+         name: name.value || nameText.innerHTML,
+         desc: desc.value || descText.innerHTML,
+         image: image.value || imageText.innerHTML,
+      }
+      return user
+   }
 
+}
 
 
 //Получаем информацию о профиле с хранилища.
-const fetchData = async (): Promise<IData> => {
-   const data: IData = {
-      name: localStorage.name,
-      desc: localStorage.desc,
-      image: localStorage.image,
-   }
-   return data
-}
 
-
-//Изменяем элементы профиля.
-const changeProfileInfo = (name: Element, desc: Element, image: any, data: IData) => {
-   name.textContent = data.name
-   desc.textContent = data.desc
-   image.src = data.image
-}
-
-//Отображаем элементы профиля.
-const renderProfileInfo = async () => {
-   const name = document.querySelector('.infoText__name-text')
-   const desc = document.querySelector('.infoText__desc-text')
-   const image = document.querySelector('.photo')
-   if (name && desc && image) {
-      const data: IData = await fetchData()
-      changeProfileInfo(name, desc, image, data)
+const fetchProfile = (): void => {
+   const user = saveInfoProfile()
+   console.log(user);
+   if (user) {
+      localStorage.setItem('profile', JSON.stringify(user))
+      renderProfile()
    }
 }
+
+//Отображаем профиль
+
+const renderProfile = (): void => {
+   const name: HTMLDivElement = document.querySelector('.infoText__name-text')
+   const desc: HTMLDivElement = document.querySelector('.infoText__desc-text')
+   const image: HTMLImageElement = document.querySelector('.photo')
+   const userStorage = localStorage.getItem('profile')
+   if (userStorage) {
+      const user = JSON.parse(userStorage)
+      name.textContent = user.name
+      desc.textContent = user.desc
+      image.src = user.image
+   }
+}
+
+
+
+
 
 //Очищаем поля ввода.
 const clearInfoInput = () => {
@@ -83,35 +101,6 @@ const clearInfoInput = () => {
       inputName.value = ''
 
    }
-}
-
-
-//Получаем информацию о пользователе .
-
-const getProfileInfo = (): IData | void => {
-
-   const name: HTMLInputElement | null = document.querySelector('.inputName')
-   const desc: HTMLInputElement | null = document.querySelector('.inputDesc')
-   const image: HTMLInputElement | null = document.querySelector('.inputImgUrl')
-   if (name && desc && image) {
-      return {
-         name: name.value || localStorage.name,
-         desc: desc.value || localStorage.desc,
-         image: image.value || localStorage.image,
-
-      }
-   }
-}
-
-//Сохраняем данные в хранилище и отображаем их.
-const postNewInfo = async () => {
-   const user = getProfileInfo()
-   if (user) {
-      localStorage.setItem('name', user.name)
-      localStorage.setItem('desc', user.desc)
-      localStorage.setItem('image', user.image)
-   }
-   renderProfileInfo()
 }
 
 
@@ -190,8 +179,8 @@ const setPost = () => {
          addPost()
       }
    }
-
 }
+
 
 
 
@@ -239,6 +228,8 @@ const addPost = () => {
 
          })
 
+      } else {
+         postList.innerHTML = 'Загрузите свою первую фотографию.'
       }
 
    }
@@ -372,7 +363,7 @@ const onClickSaveProfile = () => {
    if (darkTheme) {
       darkTheme.style.display = 'none'
       onClickCloseModal()
-      postNewInfo()
+      fetchProfile()
       clearInfoInput()
    }
 }
@@ -397,8 +388,8 @@ const onClickAdd = () => {
 
 
 const renderPage = () => {
-   renderProfileInfo()
    addPost()
+   renderProfile()
 }
 
 

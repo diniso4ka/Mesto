@@ -3,6 +3,14 @@ body {
    background-color: #000;
    color: #fff;
    box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+
+.wrapper {
+
+   flex: 1 0 auto;
 }
 
 button {
@@ -293,7 +301,10 @@ input:focus {
 }
 
 .footer_container {
-   margin: 20px auto;
+   color: #545454;
+   flex: 0 0 auto;
+   padding-top: 60px;
+   padding-bottom: 60px;
 }
 
 @media (max-width:900px) {

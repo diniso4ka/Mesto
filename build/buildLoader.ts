@@ -32,8 +32,8 @@ export function buildLoaders(): webpack.RuleSetRule[] {
    return [
       fileLoader,
       typeScriptLoader,
-      cssLoader,
       imageLoader,
-      htmlLoader
+      htmlLoader,
+      cssLoader,
    ]
 }

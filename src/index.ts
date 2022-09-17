@@ -59,7 +59,6 @@ const saveInfoProfile = () => {
 
 const fetchProfile = (): void => {
    const user = saveInfoProfile()
-   console.log(user);
    if (user) {
       localStorage.setItem('profile', JSON.stringify(user))
       renderProfile()

@@ -42,18 +42,18 @@ const saveInfoProfile = () => {
    const image: HTMLInputElement = document.querySelector('.inputImgUrl')
    const nameText: HTMLDivElement = document.querySelector('.infoText__name-text')
    const descText: HTMLDivElement = document.querySelector('.infoText__desc-text')
-   const imageText: HTMLDivElement = document.querySelector('.photo')
+   const imageText: HTMLImageElement = document.querySelector('.photo')
    if (name && desc && image) {
       const user = {
          name: name.value || nameText.innerHTML,
          desc: desc.value || descText.innerHTML,
-         image: image.value || imageText.innerHTML,
+         image: image.value || imageText.src,
       }
       return user
    }
 
 }
-
+localStorage.clear()
 
 //Получаем информацию о профиле с хранилища.
 

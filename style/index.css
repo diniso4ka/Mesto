@@ -321,6 +321,19 @@ input:focus {
       justify-content: center;
    }
 
+   .module {
+      max-width: 220px;
+   }
+
+   .module__input {
+      margin: 0 5px 43px 5px;
+      padding: 0 0 7px 0;
+      font-size: 12px;
+   }
+
+   .module__title {
+      font-size: 20px;
+   }
 
 
 

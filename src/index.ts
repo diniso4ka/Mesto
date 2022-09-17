@@ -116,31 +116,54 @@ const postNewInfo = async () => {
 }
 
 
-//Изменения постов
+//Шаблон постов
 
 const postElement = (city: string, image: string, id: number, liked: boolean) => {
    const item = document.createElement('div')
    item.classList.add(`itemId${id}`)
    item.classList.add('post__item')
-   item.innerHTML = ` 
+
+   const divClose = document.createElement('div')
+   divClose.innerHTML
+   item.innerHTML = `
    <svg  class='close-icon' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z" fill="white"/>
-</svg>
-            <div class="item__photo">
-               <img
-                  src=${image}
-                  alt="photo" class="item__photo-img">
-            </div>
-            <div class="item__desc">
-               <span class="desc__name">${city}</span>
-               <button class="desc__favorite">
-               <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path class='like-icon' fill-rule="evenodd" clip-rule="evenodd" d="M20.2991 1.68186C22.567 3.90213 22.567 7.54338 20.2991 9.78586L10.9804 19L1.6841 9.80806C0.606277 8.72013 0 7.27695 0 5.74496C0 4.21297 0.583823 2.76979 1.6841 1.68186C3.92957 -0.560619 7.61215 -0.560619 9.88007 1.70406L10.9804 2.792L12.0806 1.68186C14.3486 -0.560619 18.0311 -0.560619 20.2991 1.68186Z" fill="black"/>
-</svg>
-          
-               </button>
-            </div>
+</svg
    `
+   item.append(divClose)
+
+
+   const divPhoto = document.createElement('div')
+   divPhoto.classList.add('item__photo')
+   item.append(divPhoto)
+
+
+   const photoImg = document.createElement('img')
+   photoImg.classList.add('item__photo-img')
+   photoImg.src = image
+   photoImg.alt = 'photo'
+   divPhoto.append(photoImg)
+
+
+   const divDesc = document.createElement('div')
+   divDesc.classList.add('item__desc')
+   item.append(divDesc)
+
+
+   const spanDesc = document.createElement('span')
+   spanDesc.classList.add('desc__name')
+   spanDesc.textContent = city
+   divDesc.append(spanDesc)
+
+
+   const buttonFav = document.createElement('button')
+   buttonFav.classList.add('desc__favorite')
+   buttonFav.innerHTML = `
+   <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+   // <path class='like-icon' fill-rule="evenodd" clip-rule="evenodd" d="M20.2991 1.68186C22.567 3.90213 22.567 7.54338 20.2991 9.78586L10.9804 19L1.6841 9.80806C0.606277 8.72013 0 7.27695 0 5.74496C0 4.21297 0.583823 2.76979 1.6841 1.68186C3.92957 -0.560619 7.61215 -0.560619 9.88007 1.70406L10.9804 2.792L12.0806 1.68186C14.3486 -0.560619 18.0311 -0.560619 20.2991 1.68186Z" fill="black"/>
+   // </svg>
+   `
+   divDesc.append(buttonFav)
 
    return item
 }

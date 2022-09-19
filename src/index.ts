@@ -1,18 +1,35 @@
 import '../style/index.css'
 
-const darkTheme: HTMLDivElement | null = document.querySelector('.wrapper__dark')
+const darkTheme: HTMLDivElement = document.querySelector('.wrapper__dark')
+const postList: HTMLDivElement = document.querySelector('.posts')
 
 
+//Кнопки
+const saveButtonProfile: HTMLButtonElement = document.querySelector('.module__save-profile')
+const saveButtonPost: HTMLButtonElement = document.querySelector('.module__save-post')
+const changeButton: HTMLButtonElement = document.querySelector('.info__change')
+const addButton: HTMLButtonElement = document.querySelector('.profile__add')
+const closeButtonProfile: HTMLButtonElement = document.querySelector('.close-modalProfile')
+const closeButtonPost: HTMLButtonElement = document.querySelector('.close-modalPost')
+const closeButtonFullImage: HTMLButtonElement = document.querySelector('.close-modalFullImage')
 
-const saveButtonProfile: HTMLButtonElement | null = document.querySelector('.module__save-profile')
-const saveButtonPost: HTMLButtonElement | null = document.querySelector('.module__save-post')
-const changeButton: HTMLButtonElement | null = document.querySelector('.info__change')
-const addButton: HTMLButtonElement | null = document.querySelector('.profile__add')
-const closeButtonProfile: HTMLButtonElement | null = document.querySelector('.close-modalProfile')
-const closeButtonPost: HTMLButtonElement | null = document.querySelector('.close-modalPost')
-const closeButtonFullImage: HTMLButtonElement | null = document.querySelector('.close-modalFullImage')
+//Инпуты
+const name: HTMLInputElement = document.querySelector('.inputName')
+const desc: HTMLInputElement = document.querySelector('.inputDesc')
+const image: HTMLInputElement = document.querySelector('.inputImgUrl')
+const inputImage: HTMLInputElement = document.querySelector('.inputImage')
+const inputCity: HTMLInputElement = document.querySelector('.inputCity')
+
+//Элементы профиля
+const nameText: HTMLDivElement = document.querySelector('.infoText__name-text')
+const descText: HTMLDivElement = document.querySelector('.infoText__desc-text')
+const imageText: HTMLImageElement = document.querySelector('.photo')
 
 
+//Модалки
+const modalProfile: HTMLDivElement = document.querySelector('.module-profile')
+const modalPost: HTMLDivElement = document.querySelector('.module-post')
+const modalFullImage: HTMLDivElement = document.querySelector('.modal-fullImage')
 
 
 
@@ -37,16 +54,10 @@ interface IUser {
 //Сохраняем информацию о профиле в хранилище
 
 const saveInfoProfile = () => {
-   const name: HTMLInputElement = document.querySelector('.inputName')
-   const desc: HTMLInputElement = document.querySelector('.inputDesc')
-   const image: HTMLInputElement = document.querySelector('.inputImgUrl')
-   const nameText: HTMLDivElement = document.querySelector('.infoText__name-text')
-   const descText: HTMLDivElement = document.querySelector('.infoText__desc-text')
-   const imageText: HTMLImageElement = document.querySelector('.photo')
    if (name && desc && image) {
       const user = {
-         name: name.value || nameText.innerHTML,
-         desc: desc.value || descText.innerHTML,
+         name: name.value || nameText.textContent,
+         desc: desc.value || descText.textContent,
          image: image.value || imageText.src,
       }
       return user
@@ -68,15 +79,12 @@ const fetchProfile = (): void => {
 //Отображаем профиль
 
 const renderProfile = (): void => {
-   const name: HTMLDivElement = document.querySelector('.infoText__name-text')
-   const desc: HTMLDivElement = document.querySelector('.infoText__desc-text')
-   const image: HTMLImageElement = document.querySelector('.photo')
    const userStorage = localStorage.getItem('profile')
    if (userStorage) {
       const user = JSON.parse(userStorage)
-      name.textContent = user.name
-      desc.textContent = user.desc
-      image.src = user.image
+      nameText.textContent = user.name
+      descText.textContent = user.desc
+      imageText.src = user.image
    }
 }
 
@@ -86,19 +94,9 @@ const renderProfile = (): void => {
 
 //Очищаем поля ввода.
 const clearInfoInput = () => {
-   const inputImage: HTMLInputElement | null = document.querySelector('.inputImage')
-   const inputCity: HTMLInputElement | null = document.querySelector('.inputCity')
-   const inputName: HTMLInputElement | null = document.querySelector('.inputName')
-   const inputDesc: HTMLInputElement | null = document.querySelector('.inputDesc')
-   const inputImgUrl: HTMLInputElement | null = document.querySelector('.inputImgUrl')
-
-   if (inputImage && inputCity && inputImgUrl && inputDesc && inputName) {
+   if (inputImage && inputCity) {
       inputImage.value = ''
       inputCity.value = ''
-      inputImgUrl.value = ''
-      inputDesc.value = ''
-      inputName.value = ''
-
    }
 }
 
@@ -160,20 +158,18 @@ const postElement = (city: string, image: string, id: number, liked: boolean) =>
 //Добавляем пост в хранилище 
 
 const setPost = () => {
-   const name: HTMLInputElement | null = document.querySelector('.inputCity')
-   const image: HTMLInputElement | null = document.querySelector('.inputImage')
    if (name && image) {
       const postsStorage = localStorage.getItem('posts')
       if (postsStorage) {
          const posts = JSON.parse(postsStorage)
          const id = new Date().getTime()
-         posts.push({ id, name: name.value, image: image.value, liked: false })
+         posts.push({ id, name: inputCity.value, image: inputImage.value, liked: false })
          localStorage.setItem('posts', JSON.stringify(posts))
          addPost()
       } else {
          const posts = []
          const id = new Date().getTime()
-         posts.push({ id, name: name.value, image: image.value, liked: false })
+         posts.push({ id, name: inputCity.value, image: inputImage.value, liked: false })
          localStorage.setItem('posts', JSON.stringify(posts))
          addPost()
       }
@@ -186,7 +182,6 @@ const setPost = () => {
 // Рендер поста
 
 const addPost = () => {
-   const postList: HTMLDivElement | null = document.querySelector('.posts')
    const postsStorage = localStorage.getItem('posts')
    if (postList && postsStorage) {
       postList.innerHTML = ''
@@ -283,37 +278,22 @@ const openImage = (id: number) => {
    }
 }
 
-// Открываем модальное окно с изображением
-
-const openFullImageModule = () => {
-   const module: HTMLDivElement | null = document.querySelector('.modal-fullImage')
-   if (module && darkTheme) {
-      module.style.display = 'block'
-      darkTheme.style.display = 'block'
-   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 //Модальные окна
 
+
+const openFullImageModule = () => {
+   if (modalFullImage && darkTheme) {
+      modalFullImage.style.display = 'block'
+      darkTheme.style.display = 'block'
+   }
+}
+
+
 const onClickCloseModal = () => {
-   const modalProfile: HTMLDivElement | null = document.querySelector('.module-profile')
-   const modalPost: HTMLDivElement | null = document.querySelector('.module-post')
-   const modalFullImage: HTMLDivElement | null = document.querySelector('.modal-fullImage')
    if (modalPost && modalProfile && modalFullImage && darkTheme) {
       modalProfile.style.display = 'none'
       modalPost.style.display = 'none'
@@ -323,17 +303,15 @@ const onClickCloseModal = () => {
 }
 
 const openProfileModule = () => {
-   const module: HTMLDivElement | null = document.querySelector('.module-profile')
-   if (module) {
-      module.style.display = 'block'
+   if (modalProfile) {
+      modalProfile.style.display = 'block'
    }
 }
 
 
 const openPostModule = () => {
-   const module: HTMLDivElement | null = document.querySelector('.module-post')
-   if (module) {
-      module.style.display = 'block'
+   if (modalPost) {
+      modalPost.style.display = 'block'
    }
 }
 
@@ -343,8 +321,6 @@ const openPostModule = () => {
 const render = (container: HTMLDivElement, item: HTMLDivElement) => {
    container.append(item)
 }
-
-
 
 
 

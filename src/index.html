@@ -12,8 +12,6 @@
 </head>
 
 <body>
-
-
    <div class="wrapper__dark">
 
 
@@ -45,21 +43,11 @@
             </svg>
             <p class="module__title">Добавить место</p>
             <input class="module__input inputCity" placeholder="Москва" type="text" class="module__name">
-            <input class="module__input inputImage" placeholder="Ссылка на изображение" type="text"
+            <input type="url" class="module__input inputImage" placeholder="Ссылка на изображение"
                class="module__imgURL">
             <button class="module__save module__save-post">Сохранить</button>
          </div>
       </section>
-
-
-
-
-   </div>
-
-
-
-   <div class="wrapper">
-
 
       <section class="modal-fullImage">
          <div class="modal-fullImage__container">
@@ -69,9 +57,18 @@
                   d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z"
                   fill="white" />
             </svg>
-            <img class="modal-image" src="https://i.artfile.ru/3071x2047_1537950_[www.ArtFile.ru].jpg" alt="post photo">
+            <div class="modal-image"></div>
          </div>
       </section>
+
+   </div>
+
+
+
+   <div class="wrapper">
+
+
+
 
 
 
@@ -123,7 +120,7 @@
       </main>
       <footer>
          <div class="footer_container container">
-            <div>@ 2022 Mesto Russia</div>
+            <div>&#169 2022 Mesto Russia</div>
          </div>
       </footer>
    </div>

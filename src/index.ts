@@ -30,17 +30,13 @@ const imageText: HTMLImageElement = document.querySelector('.photo')
 const modalProfile: HTMLDivElement = document.querySelector('.module-profile')
 const modalPost: HTMLDivElement = document.querySelector('.module-post')
 const modalFullImage: HTMLDivElement = document.querySelector('.modal-fullImage')
+const modalElement: HTMLImageElement | null = document.querySelector('.modal-image')
 
 
 
 
 //ИЗМЕНЕНИЯ ПРОФИЛЯ
 
-interface IData {
-   name: string,
-   desc: string,
-   image: string,
-}
 
 interface IUser {
    name: string,
@@ -54,12 +50,15 @@ interface IUser {
 //Сохраняем информацию о профиле в хранилище
 
 const saveInfoProfile = () => {
-   if (name && desc && image) {
+   if (name && desc && image || nameText && descText && imageText) {
       const user = {
          name: name.value || nameText.textContent,
          desc: desc.value || descText.textContent,
          image: image.value || imageText.src,
       }
+      name.value = nameText.textContent
+      desc.value = descText.textContent
+      image.value = imageText.src
       return user
    }
 
@@ -85,6 +84,9 @@ const renderProfile = (): void => {
       nameText.textContent = user.name
       descText.textContent = user.desc
       imageText.src = user.image
+      name.value = user.name
+      desc.value = user.desc
+      image.value = user.image
    }
 }
 
@@ -108,14 +110,7 @@ const postElement = (city: string, image: string, id: number, liked: boolean) =>
    item.classList.add(`itemId${id}`)
    item.classList.add('post__item')
 
-   const divClose = document.createElement('div')
-   divClose.innerHTML
-   item.innerHTML = `
-   <svg  class='close-icon' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z" fill="white"/>
-</svg
-   `
-   item.append(divClose)
+
 
 
    const divPhoto = document.createElement('div')
@@ -140,15 +135,27 @@ const postElement = (city: string, image: string, id: number, liked: boolean) =>
    spanDesc.textContent = city
    divDesc.append(spanDesc)
 
+   const buttonsWrapper = document.createElement('div')
+   divDesc.append(buttonsWrapper)
+
+
+   const divClose = document.createElement('button')
+   divClose.classList.add('cart-buttons', 'close-button')
+   divClose.innerHTML = `
+   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" focusable="false" viewBox="0 0 12 12">
+  <path class='close-icon' fill="none" stroke="currentColor" stroke-linecap="round" d="M4.5 2.5V1c0-.3.2-.5.5-.5h2c.3 0 .5.2.5.5v1.5M2 2.5h8m-5.5 7V5m3 4.5V5m-5-.5V11c0 .3.2.5.5.5h6c.3 0 .5-.2.5-.5V4.5"/>
+</svg>
+   `
+   buttonsWrapper.append(divClose)
 
    const buttonFav = document.createElement('button')
-   buttonFav.classList.add('desc__favorite')
+   buttonFav.classList.add('desc__favorite', 'cart-buttons')
    buttonFav.innerHTML = `
    <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
    // <path class='like-icon' fill-rule="evenodd" clip-rule="evenodd" d="M20.2991 1.68186C22.567 3.90213 22.567 7.54338 20.2991 9.78586L10.9804 19L1.6841 9.80806C0.606277 8.72013 0 7.27695 0 5.74496C0 4.21297 0.583823 2.76979 1.6841 1.68186C3.92957 -0.560619 7.61215 -0.560619 9.88007 1.70406L10.9804 2.792L12.0806 1.68186C14.3486 -0.560619 18.0311 -0.560619 20.2991 1.68186Z" fill="black"/>
    // </svg>
    `
-   divDesc.append(buttonFav)
+   buttonsWrapper.append(buttonFav)
 
    return item
 }
@@ -189,7 +196,7 @@ const addPost = () => {
       if (posts) {
          posts.forEach((el: IUser) => {
             render(postList, postElement(el.name, el.image, el.id, el.liked))
-            const deleteButton: HTMLButtonElement | null = document.querySelector(`.itemId${el.id} .close-icon`)
+            const deleteButton: HTMLButtonElement | null = document.querySelector(`.itemId${el.id} .close-button`)
             if (deleteButton) {
                deleteButton.addEventListener('click', () => deletePost(el.id))
             }
@@ -263,20 +270,23 @@ const likePost = (id: number) => {
 }
 
 // Добавляем изображение в модальное окно
-
 const openImage = (id: number) => {
    const postsStorage = localStorage.getItem('posts')
-   const modalElement: HTMLImageElement | null = document.querySelector('.modal-image')
    if (postsStorage && modalElement) {
       const posts = JSON.parse(postsStorage)
+      console.log(posts)
+      console.log(id)
       posts.filter((el: IUser) => {
          if (el.id === id) {
-            modalElement.src = el.image
+            modalElement.style.background = `url(${el.image}) no-repeat center`
+            modalElement.style.backgroundSize = `contain`
+            console.log(el.image)
          }
       })
       openFullImageModule()
    }
 }
+
 
 
 
@@ -293,13 +303,21 @@ const openFullImageModule = () => {
 }
 
 
-const onClickCloseModal = () => {
-   if (modalPost && modalProfile && modalFullImage && darkTheme) {
+const onClickOverlayModal = (event: Event) => {
+   const target = event.target
+   if (target === darkTheme) {
       modalProfile.style.display = 'none'
       modalPost.style.display = 'none'
       modalFullImage.style.display = 'none'
       darkTheme.style.display = 'none'
    }
+}
+
+const onClickCloseModal = () => {
+   modalProfile.style.display = 'none'
+   modalPost.style.display = 'none'
+   modalFullImage.style.display = 'none'
+   darkTheme.style.display = 'none'
 }
 
 const openProfileModule = () => {
@@ -364,6 +382,7 @@ const onClickAdd = () => {
 
 const renderPage = () => {
    addPost()
+   saveInfoProfile()
    renderProfile()
 }
 
@@ -388,6 +407,12 @@ if (closeButtonPost) {
 }
 if (closeButtonFullImage) {
    closeButtonFullImage.addEventListener('click', onClickCloseModal)
+}
+if (closeButtonProfile) {
+   closeButtonProfile.addEventListener('click', onClickCloseModal)
+}
+if (modalProfile) {
+   darkTheme.addEventListener('click', onClickOverlayModal)
 }
 
 

@@ -81,8 +81,8 @@ button {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
-   width: 24px;
-   height: 24px;
+   min-width: 24px;
+   min-height: 24px;
    margin-left: 18px;
    cursor: pointer;
 }
@@ -101,7 +101,7 @@ button {
 .desc__favorite:hover,
 .info__change:hover,
 .close-modal:hover,
-.close-icon:hover {
+.close-button:hover {
    opacity: 0.5;
    transition: 0.3s;
 }
@@ -154,6 +154,14 @@ button {
 
 .desc__favorite {
    background-color: #fff;
+   cursor: pointer;
+}
+
+.cart-buttons {
+   background-color: #fff;
+}
+
+.close-button {
    cursor: pointer;
 }
 
@@ -223,11 +231,10 @@ button {
 
 
 .wrapper__dark {
-   width: 100%;
-   height: 100%;
+   width: 100vw;
+   height: 100vh;
    background-color: rgb(0, 0, 0, 0.8);
    position: absolute;
-   top: 0;
    z-index: 99;
    display: none;
 }
@@ -278,27 +285,27 @@ input:focus {
 
 
 .modal-fullImage__container {
-   max-width: 100vh;
    margin: 100px auto;
-   background-color: #fff;
-   position: relative;
+   max-width: 80vw;
+   background-color: rgb(56, 56, 56);
    z-index: 200;
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
+   position: relative;
+
 }
 
 .close-modalFullImage {
    position: absolute;
-   top: 10px;
-   right: 10px;
+   top: -40px;
+   right: -40px;
 }
 
 .modal-image {
-   width: 80vh;
    height: 80vh;
+   width: 80vw;
+   margin: 0;
+   padding: 0;
 }
+
 
 .footer_container {
    color: #545454;
@@ -313,8 +320,26 @@ input:focus {
 
    }
 
+   .profile__button {
+      width: 282px;
+      display: flex;
+   }
+
    .post__item {
       margin: 10px 14px;
+   }
+
+   .profile__add {
+      width: 100%;
+      margin: 30px 0 0 0;
+   }
+
+
+
+   .profile__container {
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
    }
 
    .container {
@@ -371,6 +396,11 @@ input:focus {
    .container {
       max-width: 420px;
       margin: 0 auto;
+   }
+
+   .profile__info {
+      display: flex;
+      flex-direction: column;
    }
 
 }

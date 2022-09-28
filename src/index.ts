@@ -1,6 +1,7 @@
 import '../style/index.css'
 
 const darkTheme: HTMLDivElement = document.querySelector('.wrapper__dark')
+const wrapper: HTMLDivElement = document.querySelector('.wrapper')
 const postList: HTMLDivElement = document.querySelector('.posts')
 
 
@@ -36,6 +37,7 @@ const modalElement: HTMLImageElement | null = document.querySelector('.modal-ima
 
 
 //ИЗМЕНЕНИЯ ПРОФИЛЯ
+
 
 
 interface IUser {
@@ -299,6 +301,7 @@ const openFullImageModule = () => {
    if (modalFullImage && darkTheme) {
       modalFullImage.style.display = 'block'
       darkTheme.style.display = 'block'
+      editScroll('remove')
    }
 }
 
@@ -310,6 +313,7 @@ const onClickOverlayModal = (event: Event) => {
       modalPost.style.display = 'none'
       modalFullImage.style.display = 'none'
       darkTheme.style.display = 'none'
+      editScroll('remove')
    }
 }
 
@@ -318,6 +322,7 @@ const onClickCloseModal = () => {
    modalPost.style.display = 'none'
    modalFullImage.style.display = 'none'
    darkTheme.style.display = 'none'
+   editScroll('add')
 }
 
 const openProfileModule = () => {
@@ -331,6 +336,10 @@ const openPostModule = () => {
    if (modalPost) {
       modalPost.style.display = 'block'
    }
+}
+
+const editScroll = (property: string) => {
+   `wrapper.classList.${property}('hidden')`
 }
 
 
@@ -412,7 +421,7 @@ if (closeButtonProfile) {
    closeButtonProfile.addEventListener('click', onClickCloseModal)
 }
 if (modalProfile) {
-   darkTheme.addEventListener('click', onClickOverlayModal)
+   darkTheme.addEventListener('mousedown', onClickOverlayModal)
 }
 
 

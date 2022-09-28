@@ -12,9 +12,8 @@ body {
    overflow: hidden;
 }
 
-.wrapper {
-   flex: 1 0 auto;
-}
+
+
 
 button {
    background-color: #000;
@@ -311,10 +310,12 @@ input:focus {
    padding: 0;
 }
 
+footer {
+   flex: 0 0 auto;
+}
 
 .footer_container {
    color: #545454;
-   flex: 0 0 auto;
    padding-top: 60px;
    padding-bottom: 60px;
 }

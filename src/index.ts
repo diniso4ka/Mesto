@@ -393,7 +393,6 @@ const onClickAdd = () => {
 
 const renderPage = () => {
    addPost()
-   saveInfoProfile()
    renderProfile()
 }
 

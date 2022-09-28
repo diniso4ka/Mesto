@@ -1,7 +1,7 @@
 import '../style/index.css'
 
 const darkTheme: HTMLDivElement = document.querySelector('.wrapper__dark')
-const wrapper: HTMLDivElement = document.querySelector('.wrapper')
+const wrapper = document.querySelector('html')
 const postList: HTMLDivElement = document.querySelector('.posts')
 
 
@@ -301,7 +301,7 @@ const openFullImageModule = () => {
    if (modalFullImage && darkTheme) {
       modalFullImage.style.display = 'block'
       darkTheme.style.display = 'block'
-      editScroll('remove')
+      editScroll('hidden')
    }
 }
 
@@ -313,7 +313,7 @@ const onClickOverlayModal = (event: Event) => {
       modalPost.style.display = 'none'
       modalFullImage.style.display = 'none'
       darkTheme.style.display = 'none'
-      editScroll('remove')
+      editScroll('scroll')
    }
 }
 
@@ -322,7 +322,7 @@ const onClickCloseModal = () => {
    modalPost.style.display = 'none'
    modalFullImage.style.display = 'none'
    darkTheme.style.display = 'none'
-   editScroll('add')
+   editScroll('scroll')
 }
 
 const openProfileModule = () => {
@@ -338,9 +338,11 @@ const openPostModule = () => {
    }
 }
 
-const editScroll = (property: string) => {
-   `wrapper.classList.${property}('hidden')`
+const editScroll = (prop: string) => {
+   wrapper.style.overflow = prop
 }
+
+
 
 
 // Рендер 

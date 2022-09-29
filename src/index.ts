@@ -301,6 +301,7 @@ const openFullImageModule = () => {
    if (modalFullImage && darkTheme) {
       modalFullImage.style.display = 'block'
       darkTheme.style.display = 'block'
+      window.scroll(0, 0)
       editScroll('hidden')
    }
 }
@@ -327,6 +328,7 @@ const onClickCloseModal = () => {
 
 const openProfileModule = () => {
    if (modalProfile) {
+      window.scroll(0, 0)
       modalProfile.style.display = 'block'
       editScroll('hidden')
    }
@@ -335,6 +337,7 @@ const openProfileModule = () => {
 
 const openPostModule = () => {
    if (modalPost) {
+      window.scroll(0, 0)
       modalPost.style.display = 'block'
       editScroll('hidden')
    }

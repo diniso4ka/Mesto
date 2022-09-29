@@ -328,6 +328,7 @@ const onClickCloseModal = () => {
 const openProfileModule = () => {
    if (modalProfile) {
       modalProfile.style.display = 'block'
+      editScroll('hidden')
    }
 }
 
@@ -335,6 +336,7 @@ const openProfileModule = () => {
 const openPostModule = () => {
    if (modalPost) {
       modalPost.style.display = 'block'
+      editScroll('hidden')
    }
 }
 
